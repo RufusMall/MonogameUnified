@@ -1,0 +1,11 @@
+//checkin stuff
+Git Add .
+Git Commit -a -m “”
+git push
+
+//get new shit
+git fetch upstream
+
+
+//undo local changes
+ git reset --hard HEAD
