@@ -12,8 +12,6 @@
     <NoWarn>1591,0436</NoWarn>
     <TargetFrameworkProfile />
     <SynchReleaseVersion>False</SynchReleaseVersion>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
