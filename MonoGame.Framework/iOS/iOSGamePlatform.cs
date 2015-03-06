@@ -92,6 +92,7 @@ namespace Microsoft.Xna.Framework
         private List<NSObject> _applicationObservers;
         private OpenALSoundController soundControllerInstance = null;
         private CADisplayLink _displayLink;
+        private bool _isExitPending;
 
         public iOSGamePlatform(Game game)
             : base(game)
@@ -230,6 +231,8 @@ namespace Microsoft.Xna.Framework
             _viewController.View.MakeCurrent();
             Game.Tick();
 
+            PerformPendingExit();
+
             if (!IsPlayingVideo)
             {
                 if (Game.GraphicsDevice != null)
@@ -240,6 +243,51 @@ namespace Microsoft.Xna.Framework
                 }
                 _viewController.View.Present();
             }
+        }
+
+        private bool PerformPendingExit()
+        {
+            if (!_isExitPending)
+                return false;
+
+            _isExitPending = false;
+
+            if (_displayLink != null)
+            {
+                _displayLink.Invalidate();
+                _displayLink.Dispose();
+                _displayLink = null;
+            }
+
+            UIApplication.SharedApplication.SetStatusBarHidden(false, UIStatusBarAnimation.Fade);
+
+            if (_viewController != null)
+            {
+                _viewController.InterfaceOrientationChanged -= ViewController_InterfaceOrientationChanged;
+                _viewController.View.RemoveFromSuperview();
+                _viewController.View.Dispose();
+                _viewController.RemoveFromParentViewController();
+                //this might crash ventus?
+                _viewController.Dispose();
+                _viewController = null;
+            }
+
+            if (_mainWindow != null)
+            {
+                _mainWindow.RemoveFromSuperview();
+                _mainWindow.Dispose();
+                _mainWindow = null;
+            }
+
+            if (Window != null)
+            {
+                Window = null;
+            }
+
+            StopObservingUIApplication();
+            RaiseAsyncRunLoopEnded();
+            //this.Game=null;
+            return true;
         }
 
         public override bool BeforeDraw(GameTime gameTime)
@@ -274,6 +322,7 @@ namespace Microsoft.Xna.Framework
         public override void Exit()
         {
             // Do Nothing: iOS games do not "exit" or shut down.
+            _isExitPending = true;
         }
 
         private void BeginObservingUIApplication()
@@ -293,6 +342,12 @@ namespace Microsoft.Xna.Framework
 
             foreach (var entry in events)
                 _applicationObservers.Add(NSNotificationCenter.DefaultCenter.AddObserver(entry.Item1, entry.Item2));
+        }
+
+        private void StopObservingUIApplication()
+        {
+            NSNotificationCenter.DefaultCenter.RemoveObservers(_applicationObservers);
+            _applicationObservers.Clear();
         }
 
         #region Notification Handling
