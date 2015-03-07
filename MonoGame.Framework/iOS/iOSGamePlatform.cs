@@ -217,6 +217,9 @@ namespace Microsoft.Xna.Framework
 
         internal void Tick()
         {
+            if (PerformPendingExit())
+                return;
+
             if (!Game.IsActive)
                 return;
 
