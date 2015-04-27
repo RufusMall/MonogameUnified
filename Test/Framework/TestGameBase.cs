@@ -323,7 +323,7 @@ namespace MonoGame.Tests {
 
 		const uint WM_QUIT = 0x12;
 
-		protected static void AbsorbQuitMessage ()
+		private static void AbsorbQuitMessage ()
 		{
 			NativeMessage msg;
 			if (!PeekMessage (out msg, IntPtr.Zero, 0, 0, 0))

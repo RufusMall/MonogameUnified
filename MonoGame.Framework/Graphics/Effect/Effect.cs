@@ -3,6 +3,7 @@
 // file 'LICENSE.txt', which is part of this source code package.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
@@ -102,7 +103,7 @@ namespace Microsoft.Xna.Framework.Graphics
             // First look for it in the cache.
             //
             Effect cloneSource;
-            if (!graphicsDevice.EffectCache.TryGetValue(effectKey, out cloneSource))
+            if (!EffectCache.TryGetValue(effectKey, out cloneSource))
             {
                 using (var stream = new MemoryStream(effectCode, headerSize, effectCode.Length - headerSize, false))
             	using (var reader = new BinaryReader(stream))
@@ -112,7 +113,7 @@ namespace Microsoft.Xna.Framework.Graphics
                     cloneSource.ReadEffect(reader);
 
                 // Cache the effect for later in its original unmodified state.
-                    graphicsDevice.EffectCache.Add(effectKey, cloneSource);
+                    EffectCache.Add(effectKey, cloneSource);
                 }
             }
 
@@ -563,5 +564,26 @@ namespace Microsoft.Xna.Framework.Graphics
         
 #endif
         #endregion // Effect File Reader
+
+
+        #region Effect Cache        
+
+        /// <summary>
+        /// The cache of effects from unique byte streams.
+        /// </summary>
+        private static readonly Dictionary<int, Effect> EffectCache = new Dictionary<int, Effect>();
+
+        internal static void FlushCache()
+        {
+            // Dispose all the cached effects.
+            foreach (var effect in EffectCache)
+                effect.Value.Dispose();
+
+            // Clear the cache.
+            EffectCache.Clear();
+        }
+
+        #endregion // Effect Cache
+
 	}
 }

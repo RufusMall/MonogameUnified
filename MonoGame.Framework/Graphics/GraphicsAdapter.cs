@@ -19,25 +19,13 @@ namespace Microsoft.Xna.Framework.Graphics
 {
     public sealed class GraphicsAdapter : IDisposable
     {
-        /// <summary>
-        /// Defines the driver type for graphics adapter. Usable only on DirectX platforms for now.
-        /// </summary>
+
         public enum DriverType
         {
-            /// <summary>
-            /// Hardware device been used for rendering. Maximum speed and performance.
-            /// </summary>
             Hardware,
-            /// <summary>
-            /// Emulates the hardware device on CPU. Slowly, only for testing.
-            /// </summary>
             Reference,
-            /// <summary>
-            /// Useful when <see cref="DriverType.Hardware"/> acceleration does not work.
-            /// </summary>
             FastSoftware
         }
-       
         private static ReadOnlyCollection<GraphicsAdapter> _adapters;
 
         private DisplayModeCollection _supportedDisplayModes;
@@ -64,7 +52,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public void Dispose()
         {
         }
-            
+
         public DisplayMode CurrentDisplayMode
         {
             get
@@ -144,11 +132,14 @@ namespace Microsoft.Xna.Framework.Graphics
         }
 
         /// <summary>
-        /// Used to request creation of a specific kind of driver.
+        /// Used to request creation of a specific kind of driver
+        /// Hardware is preferred most of times for performance. This is the default value.
+        /// Reference is useful for testing.
+        /// FastSoftware is useful when Hardware acceleration does not work.
         /// </summary>
         /// <remarks>
         /// These values only work on DirectX platforms and must be defined before the graphics device
-        /// is created. <see cref="DriverType.Hardware"/> by default.
+        /// is created.
         /// </remarks>
         public static DriverType UseDriverType { get; set; }
 

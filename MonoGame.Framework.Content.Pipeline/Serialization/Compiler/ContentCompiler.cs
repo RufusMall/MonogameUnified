@@ -99,9 +99,6 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
                     if (args.Length == 0)
                         continue;
 
-                    if (!kvp.Value.IsGenericTypeDefinition)
-                        continue;
-
                     if (!args[0].IsGenericType)
                         continue;
 

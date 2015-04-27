@@ -106,6 +106,17 @@ namespace Microsoft.Xna.Framework.Graphics
             if ( _scissorRectangleDirty )
 	            _scissorRectangleDirty = false;
 
+	        if ( _depthStencilStateDirty )
+            {
+                _depthStencilState.PlatformApplyState(this);
+                _depthStencilStateDirty = false;
+            }
+	        if ( _rasterizerStateDirty )
+            {
+                _rasterizerState.PlatformApplyState(this);
+	            _rasterizerStateDirty = false;
+            }
+
             // If we're not applying shaders then early out now.
             if (!applyShaders)
                 return;
@@ -145,7 +156,7 @@ namespace Microsoft.Xna.Framework.Graphics
             throw new NotImplementedException("Not implemented");
         }
 
-        private void PlatformDrawUserIndexedPrimitives<T>(PrimitiveType primitiveType, T[] vertexData, int vertexOffset, int numVertices, int[] indexData, int indexOffset, int primitiveCount, VertexDeclaration vertexDeclaration) where T : struct
+        private void PlatformDrawUserIndexedPrimitives<T>(PrimitiveType primitiveType, T[] vertexData, int vertexOffset, int numVertices, int[] indexData, int indexOffset, int primitiveCount, VertexDeclaration vertexDeclaration) where T : struct, IVertexType
         {
             throw new NotImplementedException("Not implemented");
         }

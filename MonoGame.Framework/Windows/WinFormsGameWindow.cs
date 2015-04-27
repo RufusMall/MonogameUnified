@@ -41,7 +41,6 @@ purpose and non-infringement.
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -64,7 +63,6 @@ namespace MonoGame.Framework
     {
         internal WinFormsGameForm _form;
 
-        static private ReaderWriterLockSlim _allWindowsReaderWriterLockSlim = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
         static private List<WinFormsGameWindow> _allWindows = new List<WinFormsGameWindow>();
 
         private readonly WinFormsGamePlatform _platform;
@@ -197,40 +195,12 @@ namespace MonoGame.Framework
 
             _form.KeyPress += OnKeyPress;
 
-            RegisterToAllWindows();
+            _allWindows.Add(this);
         }
 
         ~WinFormsGameWindow()
         {
             Dispose(false);
-        }
-
-        private void RegisterToAllWindows()
-        {
-            _allWindowsReaderWriterLockSlim.EnterWriteLock();
-
-            try
-            {
-                _allWindows.Add(this);
-            }
-            finally
-            {
-                _allWindowsReaderWriterLockSlim.ExitWriteLock();
-            }
-        }
-
-        private void UnregisterFromAllWindows()
-        {
-            _allWindowsReaderWriterLockSlim.EnterWriteLock();
-
-            try
-            {
-                _allWindows.Remove(this);
-            }
-            finally
-            {
-                _allWindowsReaderWriterLockSlim.ExitWriteLock();
-            }
         }
 
         private void OnActivated(object sender, EventArgs eventArgs)
@@ -453,18 +423,9 @@ namespace MonoGame.Framework
 
         internal void UpdateWindows()
         {
-            _allWindowsReaderWriterLockSlim.EnterReadLock();
-
-            try
-            {
-                // Update the mouse state for each window.
-                foreach (var window in _allWindows.Where(w => w.Game == Game))
-                    window.UpdateMouseState();
-            }
-            finally
-            {
-                _allWindowsReaderWriterLockSlim.ExitReadLock();
-            }
+            // Update the mouse state for each window.
+            foreach (var window in _allWindows)
+                window.UpdateMouseState();
         }
 
         private const uint WM_QUIT = 0x12;
@@ -503,7 +464,7 @@ namespace MonoGame.Framework
             {
                 if (_form != null)
                 {
-                    UnregisterFromAllWindows(); 
+                    _allWindows.Remove(this);
                     _form.Dispose();
                     _form = null;
                 }
