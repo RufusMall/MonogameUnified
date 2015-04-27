@@ -56,11 +56,6 @@ namespace Microsoft.Xna.Framework.Content
 
         #region Public Properties
 
-        public virtual bool CanDeserializeIntoExistingObject
-        {
-            get { return false; }
-        }
-
         public Type TargetType
         {
             get { return this.targetType; }

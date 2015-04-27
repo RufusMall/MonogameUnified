@@ -16,16 +16,13 @@ namespace Microsoft.Xna.Framework.Graphics
 {
     public partial class RasterizerState
     {
-        internal void PlatformApplyState(GraphicsDevice device, bool force = false)
+        internal void PlatformApplyState(GraphicsDevice device)
         {
             // When rendering offscreen the faces change order.
             var offscreen = device.IsRenderTargetBound;
 
-            if (force)
-            {
-                // Turn off dithering to make sure data returned by Texture.GetData is accurate
-                GL.Disable(EnableCap.Dither);
-            }
+            // Turn off dithering to make sure data returned by Texture.GetData is accurate
+            GL.Disable(EnableCap.Dither);
 
             if (CullMode == CullMode.None)
             {
@@ -67,31 +64,20 @@ namespace Microsoft.Xna.Framework.Graphics
                 throw new NotImplementedException();
 #endif
 
-            if (force || this.ScissorTestEnable != device._lastRasterizerState.ScissorTestEnable)
-			{
-			    if (ScissorTestEnable)
-				    GL.Enable(EnableCap.ScissorTest);
-			    else
-				    GL.Disable(EnableCap.ScissorTest);
-                GraphicsExtensions.CheckGLError();
-                device._lastRasterizerState.ScissorTestEnable = this.ScissorTestEnable;
-            }
+			if (ScissorTestEnable)
+				GL.Enable(EnableCap.ScissorTest);
+			else
+				GL.Disable(EnableCap.ScissorTest);
+            GraphicsExtensions.CheckGLError();
 
-            if (force || 
-                this.DepthBias != device._lastRasterizerState.DepthBias ||
-                this.SlopeScaleDepthBias != device._lastRasterizerState.SlopeScaleDepthBias)
-            {
-                if (this.DepthBias != 0 || this.SlopeScaleDepthBias != 0)
-                {   
-                    GL.Enable(EnableCap.PolygonOffsetFill);
-                    GL.PolygonOffset(this.SlopeScaleDepthBias, this.DepthBias);
-                }
-                else
-                    GL.Disable(EnableCap.PolygonOffsetFill);
-                GraphicsExtensions.CheckGLError();
-                device._lastRasterizerState.DepthBias = this.DepthBias;
-                device._lastRasterizerState.SlopeScaleDepthBias = this.SlopeScaleDepthBias;
+            if (this.DepthBias != 0 || this.SlopeScaleDepthBias != 0)
+            {   
+                GL.Enable(EnableCap.PolygonOffsetFill);
+                GL.PolygonOffset(this.SlopeScaleDepthBias, this.DepthBias);
             }
+            else
+                GL.Disable(EnableCap.PolygonOffsetFill);
+            GraphicsExtensions.CheckGLError();
 
             // TODO: Implement MultiSampleAntiAlias
         }

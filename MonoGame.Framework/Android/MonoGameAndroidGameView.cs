@@ -27,9 +27,6 @@ namespace Microsoft.Xna.Framework
 
         public bool IsResuming { get; private set; }
         private bool _lostContext;
-#if !OUYA
-        private bool backPressed;
-#endif
 
         public MonoGameAndroidGameView(Context context, AndroidGameWindow androidGameWindow, Game game)
             : base(context)
@@ -93,23 +90,6 @@ namespace Microsoft.Xna.Framework
                     }
                 }
             }
-
-            // When the game is resumed from a portrait orientation it may receive a portrait surface at first.
-            // If the game does not support portrait we should ignore it because we will receive the landscape surface a moment later.
-            if (width < height && (_game.graphicsDeviceManager.SupportedOrientations & DisplayOrientation.Portrait) == 0)
-                return;
-
-            var manager = _game.graphicsDeviceManager;
-            
-            manager.PreferredBackBufferWidth = width;
-            manager.PreferredBackBufferHeight = height;
-
-            if (manager.GraphicsDevice != null)
-                manager.GraphicsDevice.Viewport = new Viewport(0, 0, width, height);
-
-            _gameWindow.ChangeClientBounds(new Rectangle(0, 0, width, height));
-
-            manager.ApplyChanges();
 
             SurfaceChanged(holder, format, width, height);
             Android.Util.Log.Debug("MonoGame", "MonoGameAndroidGameView.SurfaceChanged: format = " + format + ", width = " + width + ", height = " + height);
@@ -302,12 +282,8 @@ namespace Microsoft.Xna.Framework
             Keyboard.KeyDown(keyCode);
             // we need to handle the Back key here because it doesnt work any other way
 #if !OUYA
-            if (keyCode == Keycode.Back && !this.backPressed)
-            {
-                this.backPressed = true;
+            if (keyCode == Keycode.Back)
                 GamePad.Back = true;
-                return true;
-            }
 #endif
 
             if (keyCode == Keycode.VolumeUp)
@@ -334,12 +310,6 @@ namespace Microsoft.Xna.Framework
                 return true;
 #endif
             Keyboard.KeyUp(keyCode);
-
-#if !OUYA
-            if (keyCode == Keycode.Back)
-                this.backPressed = false;
-#endif
-
             return true;
         }
 

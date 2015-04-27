@@ -146,7 +146,7 @@ namespace MonoGame.Tests.Visual {
 
 			_renderToTextureTarget = new RenderTarget2D(
 				GraphicsDevice, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height,
-				false, SurfaceFormat.Color, DepthFormat.Depth24Stencil8);
+				false, SurfaceFormat.Color, DepthFormat.Depth24);
 
 			GraphicsDevice.SetRenderTarget (_renderToTextureTarget);
 		}

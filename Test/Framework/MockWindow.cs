@@ -17,8 +17,8 @@ namespace MonoGame.Tests.Framework
             get { throw new NotImplementedException(); }
         }
 
-        // TODO: Make this common so that all platforms have it!
-#if (WINDOWS && !WINRT) || LINUX
+// TODO: Make this common so that all platforms have it!
+#if WINDOWS && DIRECTX
         public override Point Position { get; set; }
 #endif
 

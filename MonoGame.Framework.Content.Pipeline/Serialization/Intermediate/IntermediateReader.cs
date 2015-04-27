@@ -114,9 +114,6 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
 
             var result = typeSerializer.Deserialize(this, format, existingInstance);
 
-            if (isEmpty)
-                Xml.Skip();
-
             if (!isEmpty)
                 Xml.ReadEndElement();
 
@@ -141,9 +138,6 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
 
                 str = Xml.ReadElementContentAsString();
             }
-
-            if (string.IsNullOrEmpty(str))
-                return;
             
             // Do we already have one for this?
             Action<object> prevFixup;
@@ -180,10 +174,8 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
             // Execute the fixups.
             foreach (var fixup in _resourceFixups)
             {
-                object resource;
-                if (!resources.TryGetValue(fixup.Key, out resource))
-                    throw new InvalidContentException("Missing shared resource \"" + fixup.Key + "\".");
-                fixup.Value(resource);
+                var resouce = resources[fixup.Key];
+                fixup.Value(resouce);
             }
         }
 

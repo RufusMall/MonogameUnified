@@ -133,14 +133,20 @@ namespace Microsoft.Xna.Framework.Graphics
 
         protected override void Dispose(bool disposing)
         {
-            if (!IsDisposed && _shaderHandle != -1)
+            if (!IsDisposed)
             {
                 Threading.BlockOnUIThread(() =>
+                {
+                    if (_shaderHandle != -1)
                     {
-                        GL.DeleteShader(_shaderHandle);
-                        GraphicsExtensions.CheckGLError();
+                        if (GL.IsShader(_shaderHandle))
+                        {
+                            GL.DeleteShader(_shaderHandle);
+                            GraphicsExtensions.CheckGLError();
+                        }
                         _shaderHandle = -1;
-                    });
+                    }
+                });
             }
 
             base.Dispose(disposing);

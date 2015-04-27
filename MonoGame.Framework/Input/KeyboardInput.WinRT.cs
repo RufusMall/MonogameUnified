@@ -44,8 +44,7 @@ namespace Microsoft.Xna.Framework.Input
 
         private static void PlatformCancel(string result)
         {
-            dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await inputDialog.CloseAsync());
-
+            var task = inputDialog.CloseAsync();
             tcs.SetResult(result);
         }
     }
