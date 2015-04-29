@@ -20,7 +20,9 @@ namespace Microsoft.Xna.Framework
             if (platform == null)
                 throw new ArgumentNullException("platform");
             _platform = platform;
-            SupportedOrientations = DisplayOrientation.Default;
+            SupportedOrientations = 
+                DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight 
+                | DisplayOrientation.Portrait | DisplayOrientation.PortraitDown;
         }
 
         public event EventHandler<EventArgs> InterfaceOrientationChanged;
@@ -29,10 +31,10 @@ namespace Microsoft.Xna.Framework
 
         public override void LoadView()
         {
-            CGRect frame;
+			CGRect frame;
             if (ParentViewController != null && ParentViewController.View != null)
             {
-                frame = new CGRect(CGPoint.Empty, ParentViewController.View.Frame.Size);
+				frame = new CGRect(CGPoint.Empty, ParentViewController.View.Frame.Size);
             }
             else
             {
@@ -42,11 +44,11 @@ namespace Microsoft.Xna.Framework
                 // iOS 8+ reports resolution correctly in all cases
                 if (InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft || InterfaceOrientation == UIInterfaceOrientation.LandscapeRight)
                 {
-                    frame = new CGRect(0, 0, (nfloat)Math.Max(screen.Bounds.Width, screen.Bounds.Height), (nfloat)Math.Min(screen.Bounds.Width, screen.Bounds.Height));
+					frame = new CGRect(0, 0, (nfloat)Math.Max(screen.Bounds.Width, screen.Bounds.Height), (nfloat)Math.Min(screen.Bounds.Width, screen.Bounds.Height));
                 }
                 else
                 {
-                    frame = new CGRect(0, 0, screen.Bounds.Width, screen.Bounds.Height);
+					frame = new CGRect(0, 0, screen.Bounds.Width, screen.Bounds.Height);
                 }
             }
 
@@ -63,18 +65,15 @@ namespace Microsoft.Xna.Framework
         }
 
         #region Autorotation for iOS 5 or older
-
         public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
             DisplayOrientation supportedOrientations = OrientationConverter.Normalize(SupportedOrientations);
             var toOrientation = OrientationConverter.ToDisplayOrientation(toInterfaceOrientation);
             return (toOrientation & supportedOrientations) == toOrientation;
         }
-
         #endregion
 
         #region Autorotation for iOS 6 or newer
-
         public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
         {
             return UIInterfaceOrientationMask.LandscapeRight;//OrientationConverter.ToUIInterfaceOrientationMask(this.SupportedOrientations);
@@ -84,7 +83,6 @@ namespace Microsoft.Xna.Framework
         {
             return true;
         }
-
         #endregion
 
         public override void DidRotate(UIInterfaceOrientation fromInterfaceOrientation)
@@ -97,20 +95,18 @@ namespace Microsoft.Xna.Framework
         }
 
         #region Hide statusbar for iOS 7 or newer
-
         public override bool PrefersStatusBarHidden()
         {
             return _platform.Game.graphicsDeviceManager.IsFullScreen;
         }
-
         #endregion
 
 
         #region iOS 8 or newer
 
-        public override void ViewWillTransitionToSize(CGSize toSize, IUIViewControllerTransitionCoordinator coordinator)
+		public override void ViewWillTransitionToSize(CGSize toSize, IUIViewControllerTransitionCoordinator coordinator)
         {
-            CGSize oldSize = View.Bounds.Size;
+			CGSize oldSize = View.Bounds.Size;
 
             if (oldSize != toSize)
             {
@@ -124,7 +120,7 @@ namespace Microsoft.Xna.Framework
                 coordinator.AnimateAlongsideTransition((context) =>
                     {
                         DidRotate(prevOrientation);
-                    }, (context) =>
+                    }, (context) => 
                     {
                     });
 

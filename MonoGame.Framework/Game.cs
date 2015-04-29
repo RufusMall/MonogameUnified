@@ -82,17 +82,15 @@ namespace Microsoft.Xna.Framework
             Dispose(false);
         }
 
-        [System.Diagnostics.Conditional("DEBUG")]
-        internal void Log(string Message)
-        {
-            if (Platform != null)
-                Platform.Log(Message);
-        }
+		[System.Diagnostics.Conditional("DEBUG")]
+		internal void Log(string Message)
+		{
+			if (Platform != null) Platform.Log(Message);
+		}
 
         #region IDisposable Implementation
 
         private bool _isDisposed;
-
         public void Dispose()
         {
             Dispose(true);
@@ -166,12 +164,11 @@ namespace Microsoft.Xna.Framework
 
         #region Properties
 
-        #if ANDROID
+#if ANDROID
         [CLSCompliant(false)]
         public static AndroidGameActivity Activity { get; internal set; }
 #endif
         private static Game _instance = null;
-
         internal static Game Instance { get { return Game._instance; } }
 
         public LaunchParameters LaunchParameters { get; private set; }
@@ -249,8 +246,7 @@ namespace Microsoft.Xna.Framework
             set { _isFixedTimeStep = value; }
         }
 
-        public GameServiceContainer Services
-        {
+        public GameServiceContainer Services {
             get { return _services; }
         }
 
@@ -310,12 +306,12 @@ namespace Microsoft.Xna.Framework
         public event EventHandler<EventArgs> Disposed;
         public event EventHandler<EventArgs> Exiting;
 
-        #if WINDOWS_STOREAPP && !WINDOWS_PHONE81
+#if WINDOWS_STOREAPP && !WINDOWS_PHONE81
         [CLSCompliant(false)]
         public event EventHandler<ViewStateChangedEventArgs> ApplicationViewChanged;
 #endif
 
-        #if WINRT
+#if WINRT
         [CLSCompliant(false)]
         public ApplicationExecutionState PreviousExecutionState { get; internal set; }
 #endif
@@ -324,9 +320,9 @@ namespace Microsoft.Xna.Framework
 
         #region Public Methods
 
-        #if IOS || WINDOWS_STOREAPP && !WINDOWS_PHONE81
-        // [Obsolete("This platform's policy does not allow programmatically closing.", true)]
-        #endif
+#if WINDOWS_STOREAPP && !WINDOWS_PHONE81
+        [Obsolete("This platform's policy does not allow programmatically closing.", true)]
+#endif
         public void Exit()
         {
             Platform.Exit();
@@ -347,7 +343,7 @@ namespace Microsoft.Xna.Framework
         {
             _suppressDraw = true;
         }
-
+        
         public void RunOneFrame()
         {
             if (Platform == null)
@@ -356,9 +352,8 @@ namespace Microsoft.Xna.Framework
             if (!Platform.BeforeRun())
                 return;
 
-            if (!_initialized)
-            {
-                DoInitialize();
+            if (!_initialized) {
+                DoInitialize ();
                 _gameTimer = Stopwatch.StartNew();
                 _initialized = true;
             }
@@ -366,9 +361,9 @@ namespace Microsoft.Xna.Framework
             BeginRun();            
 
             //Not quite right..
-            Tick();
+            Tick ();
 
-            EndRun();
+            EndRun ();
 
         }
 
@@ -387,9 +382,8 @@ namespace Microsoft.Xna.Framework
                 return;
             }
 
-            if (!_initialized)
-            {
-                DoInitialize();
+            if (!_initialized) {
+                DoInitialize ();
                 _initialized = true;
             }
 
@@ -397,18 +391,18 @@ namespace Microsoft.Xna.Framework
             _gameTimer = Stopwatch.StartNew();
             switch (runBehavior)
             {
-                case GameRunBehavior.Asynchronous:
-                    Platform.AsyncRunLoopEnded += Platform_AsyncRunLoopEnded;
-                    Platform.StartRunLoop();
-                    break;
-                case GameRunBehavior.Synchronous:
-                    Platform.RunLoop();
-                    EndRun();
-                    DoExiting();
-                    break;
-                default:
-                    throw new ArgumentException(string.Format(
-                            "Handling for the run behavior {0} is not implemented.", runBehavior));
+            case GameRunBehavior.Asynchronous:
+                Platform.AsyncRunLoopEnded += Platform_AsyncRunLoopEnded;
+                Platform.StartRunLoop();
+                break;
+            case GameRunBehavior.Synchronous:
+                Platform.RunLoop();
+                EndRun();
+				DoExiting();
+                break;
+            default:
+                throw new ArgumentException(string.Format(
+                    "Handling for the run behavior {0} is not implemented.", runBehavior));
             }
         }
 
@@ -425,7 +419,7 @@ namespace Microsoft.Xna.Framework
             // any change fully in both the fixed and variable timestep 
             // modes across multiple devices and platforms.
 
-            RetryTick:
+        RetryTick:
 
             // Advance the accumulated elapsed time.
             var currentTicks = _gameTimer.Elapsed.Ticks;
@@ -498,6 +492,8 @@ namespace Microsoft.Xna.Framework
                 _gameTime.ElapsedGameTime = _accumulatedElapsedTime;
                 _gameTime.TotalGameTime += _accumulatedElapsedTime;
                 _accumulatedElapsedTime = TimeSpan.Zero;
+                // Always set the RunningSlowly flag to false here when we are in fast-as-possible mode.
+                _gameTime.IsRunningSlowly = false;
 
                 DoUpdate(_gameTime);
             }
@@ -515,31 +511,17 @@ namespace Microsoft.Xna.Framework
 
         #region Protected Methods
 
-        protected virtual bool BeginDraw()
-        {
-            return true;
-        }
-
+        protected virtual bool BeginDraw() { return true; }
         protected virtual void EndDraw()
         {
             Platform.Present();
         }
 
-        protected virtual void BeginRun()
-        {
-        }
+        protected virtual void BeginRun() { }
+        protected virtual void EndRun() { }
 
-        protected virtual void EndRun()
-        {
-        }
-
-        protected virtual void LoadContent()
-        {
-        }
-
-        protected virtual void UnloadContent()
-        {
-        }
+        protected virtual void LoadContent() { }
+        protected virtual void UnloadContent() { }
 
         protected virtual void Initialize()
         {
@@ -581,24 +563,24 @@ namespace Microsoft.Xna.Framework
         protected virtual void Update(GameTime gameTime)
         {
             _updateables.ForEachFilteredItem(UpdateAction, gameTime);
-        }
+		}
 
         protected virtual void OnExiting(object sender, EventArgs args)
         {
             Raise(Exiting, args);
         }
-
-        protected virtual void OnActivated(object sender, EventArgs args)
-        {
-            AssertNotDisposed();
-            Raise(Activated, args);
-        }
-
-        protected virtual void OnDeactivated(object sender, EventArgs args)
-        {
-            AssertNotDisposed();
-            Raise(Deactivated, args);
-        }
+		
+		protected virtual void OnActivated (object sender, EventArgs args)
+		{
+			AssertNotDisposed();
+			Raise(Activated, args);
+		}
+		
+		protected virtual void OnDeactivated (object sender, EventArgs args)
+		{
+			AssertNotDisposed();
+			Raise(Deactivated, args);
+		}
 
         #endregion Protected Methods
 
@@ -626,10 +608,10 @@ namespace Microsoft.Xna.Framework
             var platform = (GamePlatform)sender;
             platform.AsyncRunLoopEnded -= Platform_AsyncRunLoopEnded;
             EndRun();
-            DoExiting();
+			DoExiting();
         }
 
-        #if WINDOWS_STOREAPP && !WINDOWS_PHONE81
+#if WINDOWS_STOREAPP && !WINDOWS_PHONE81
         private void Platform_ApplicationViewChanged(object sender, ViewStateChangedEventArgs e)
         {
             AssertNotDisposed();
@@ -647,7 +629,7 @@ namespace Microsoft.Xna.Framework
 
         internal void applyChanges(GraphicsDeviceManager manager)
         {
-            Platform.BeginScreenDeviceChange(GraphicsDevice.PresentationParameters.IsFullScreen);
+			Platform.BeginScreenDeviceChange(GraphicsDevice.PresentationParameters.IsFullScreen);
 
 #if !(WINDOWS && DIRECTX)
 
@@ -657,11 +639,11 @@ namespace Microsoft.Xna.Framework
                 Platform.ExitFullScreen();
 #endif
             var viewport = new Viewport(0, 0,
-                               GraphicsDevice.PresentationParameters.BackBufferWidth,
-                               GraphicsDevice.PresentationParameters.BackBufferHeight);
+			                            GraphicsDevice.PresentationParameters.BackBufferWidth,
+			                            GraphicsDevice.PresentationParameters.BackBufferHeight);
 
             GraphicsDevice.Viewport = viewport;
-            Platform.EndScreenDeviceChange(string.Empty, viewport.Width, viewport.Height);
+			Platform.EndScreenDeviceChange(string.Empty, viewport.Width, viewport.Height);
         }
 
         internal void DoUpdate(GameTime gameTime)
@@ -710,11 +692,11 @@ namespace Microsoft.Xna.Framework
             _components.ComponentRemoved += Components_ComponentRemoved;
         }
 
-        internal void DoExiting()
-        {
-            OnExiting(this, EventArgs.Empty);
-            UnloadContent();
-        }
+		internal void DoExiting()
+		{
+			OnExiting(this, EventArgs.Empty);
+			UnloadContent();
+		}
 
         #endregion Internal Methods
 
@@ -728,7 +710,7 @@ namespace Microsoft.Xna.Framework
                         Services.GetService(typeof(IGraphicsDeviceManager));
 
                     if (_graphicsDeviceManager == null)
-                        throw new InvalidOperationException("No Graphics Device Manager");
+                        throw new InvalidOperationException ("No Graphics Device Manager");
                 }
                 return (GraphicsDeviceManager)_graphicsDeviceManager;
             }
@@ -938,8 +920,7 @@ namespace Microsoft.Xna.Framework
             }
 
             private static readonly Comparison<int> RemoveJournalSortComparison =
-                (x, y) => Comparer<int>.Default.Compare(y, x);
-            // Sort high to low
+                (x, y) => Comparer<int>.Default.Compare(y, x); // Sort high to low
             private void ProcessRemoveJournal()
             {
                 if (_removeJournal.Count == 0)

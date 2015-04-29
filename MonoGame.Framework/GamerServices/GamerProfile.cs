@@ -42,7 +42,7 @@ purpose and non-infringement.
 using System;
 using System.Globalization;
 
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 #endregion
 

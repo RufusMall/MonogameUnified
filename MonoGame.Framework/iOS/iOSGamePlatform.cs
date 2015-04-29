@@ -80,7 +80,6 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
-
 //using Microsoft.Xna.Framework.GamerServices;
 
 namespace Microsoft.Xna.Framework
@@ -90,17 +89,17 @@ namespace Microsoft.Xna.Framework
         private iOSGameViewController _viewController;
         private UIWindow _mainWindow;
         private List<NSObject> _applicationObservers;
-        private OpenALSoundController soundControllerInstance = null;
+		private OpenALSoundController soundControllerInstance = null;
         private CADisplayLink _displayLink;
-        private bool _isExitPending;
+		private bool _isExitPending;
 
-        public iOSGamePlatform(Game game)
-            : base(game)
+        public iOSGamePlatform(Game game) :
+            base(game)
         {
             game.Services.AddService(typeof(iOSGamePlatform), this);
 			
-            // Setup our OpenALSoundController to handle our SoundBuffer pools
-            soundControllerInstance = OpenALSoundController.GetInstance;
+			// Setup our OpenALSoundController to handle our SoundBuffer pools
+			soundControllerInstance = OpenALSoundController.GetInstance;
 
             //This also runs the TitleContainer static constructor, ensuring it is done on the main thread
             Directory.SetCurrentDirectory(TitleContainer.Location);
@@ -110,30 +109,24 @@ namespace Microsoft.Xna.Framework
             UIApplication.SharedApplication.SetStatusBarHidden(true, UIStatusBarAnimation.Fade);
 
             // Create a full-screen window
-            _mainWindow = new UIWindow(UIScreen.MainScreen.Bounds);
-            //_mainWindow.AutoresizingMask = UIViewAutoresizing.FlexibleDimensions;
+            _mainWindow = new UIWindow (UIScreen.MainScreen.Bounds);
+			//_mainWindow.AutoresizingMask = UIViewAutoresizing.FlexibleDimensions;
 			
-            game.Services.AddService(typeof(UIWindow), _mainWindow);
+            game.Services.AddService (typeof(UIWindow), _mainWindow);
 
             _viewController = new iOSGameViewController(this);
-            game.Services.AddService(typeof(UIViewController), _viewController);
-            Window = new iOSGameWindow(_viewController);
+            game.Services.AddService (typeof(UIViewController), _viewController);
+            Window = new iOSGameWindow (_viewController);
 
-
-            // In iOS 8+ we need to set the root view controller *after* Window MakeKey
-            // This ensures that the viewController's supported interface orientations
-            // will be respected at launch
-            _mainWindow.RootViewController = _viewController;
-
-            _mainWindow.Add(_viewController.View);
+            _mainWindow.Add (_viewController.View);
 
             _viewController.InterfaceOrientationChanged += ViewController_InterfaceOrientationChanged;
 
             //(SJ) Why is this called here when it's not in any other project
-            // Guide.Initialise(game);
+            //Guide.Initialise(game);
         }
 
-        public override void TargetElapsedTimeChanged()
+        public override void TargetElapsedTimeChanged ()
         {
             CreateDisplayLink();
         }
@@ -178,8 +171,8 @@ namespace Microsoft.Xna.Framework
             {
                 if (_viewController != null)
                 {
-                    _viewController.View.RemoveFromSuperview();
-                    _viewController.RemoveFromParentViewController();
+                    _viewController.View.RemoveFromSuperview ();
+                    _viewController.RemoveFromParentViewController ();
                     _viewController.Dispose();
                     _viewController = null;
                 }
@@ -194,7 +187,7 @@ namespace Microsoft.Xna.Framework
 
         public override void BeforeInitialize()
         {
-            base.BeforeInitialize();
+            base.BeforeInitialize ();
 
             _viewController.View.LayoutSubviews();
         }
@@ -208,6 +201,11 @@ namespace Microsoft.Xna.Framework
         {
             // Show the window
             _mainWindow.MakeKeyAndVisible();
+
+            // In iOS 8+ we need to set the root view controller *after* Window MakeKey
+            // This ensures that the viewController's supported interface orientations
+            // will be respected at launch
+            _mainWindow.RootViewController = _viewController;
 
             BeginObservingUIApplication();
 
@@ -295,8 +293,8 @@ namespace Microsoft.Xna.Framework
 
         public override bool BeforeDraw(GameTime gameTime)
         {
-            // Update our OpenAL sound buffer pools
-            soundControllerInstance.Update();
+    		// Update our OpenAL sound buffer pools
+    		soundControllerInstance.Update();
 
             if (IsPlayingVideo)
                 return false;
@@ -341,7 +339,7 @@ namespace Microsoft.Xna.Framework
                 Tuple.Create(
                     UIApplication.WillTerminateNotification,
                     new Action<NSNotification>(Application_WillTerminate)),
-            };
+             };
 
             foreach (var entry in events)
                 _applicationObservers.Add(NSNotificationCenter.DefaultCenter.AddObserver(entry.Item1, entry.Item2));
@@ -369,49 +367,49 @@ namespace Microsoft.Xna.Framework
         private void Application_WillTerminate(NSNotification notification)
         {
             // FIXME: Cleanly end the run loop.
-            if (Game != null)
-            {
-                // TODO MonoGameGame.Terminate();
-            }
+			if ( Game != null )
+			{
+				// TODO MonoGameGame.Terminate();
+			}
         }
 
         #endregion Notification Handling
 
-        private void ViewController_InterfaceOrientationChanged(object sender, EventArgs e)
-        {
-            var orientation = OrientationConverter.ToDisplayOrientation(
-                                  _viewController.InterfaceOrientation);
+		private void ViewController_InterfaceOrientationChanged (object sender, EventArgs e)
+		{
+			var orientation = OrientationConverter.ToDisplayOrientation (
+				_viewController.InterfaceOrientation);
 
-            // FIXME: The presentation parameters for the GraphicsDevice should
-            //        be managed by the GraphicsDevice itself.  Not by
-            //        iOSGamePlatform.
-            var gdm = (GraphicsDeviceManager)Game.Services.GetService(typeof(IGraphicsDeviceManager));
+			// FIXME: The presentation parameters for the GraphicsDevice should
+			//        be managed by the GraphicsDevice itself.  Not by
+			//        iOSGamePlatform.
+			var gdm = (GraphicsDeviceManager) Game.Services.GetService (typeof (IGraphicsDeviceManager));
 
             TouchPanel.DisplayOrientation = orientation;
 
-            if (gdm != null)
-            {	
+			if (gdm != null)
+			{	
 
-                var presentParams = gdm.GraphicsDevice.PresentationParameters;
-                presentParams.BackBufferWidth = gdm.PreferredBackBufferWidth;
-                presentParams.BackBufferHeight = gdm.PreferredBackBufferHeight;
+				var presentParams = gdm.GraphicsDevice.PresentationParameters;
+				presentParams.BackBufferWidth = gdm.PreferredBackBufferWidth;
+				presentParams.BackBufferHeight = gdm.PreferredBackBufferHeight;
 
-                presentParams.DisplayOrientation = orientation;
+				presentParams.DisplayOrientation = orientation;
 
                 // Recalculate our views.
                 ViewController.View.LayoutSubviews();
 				
                 gdm.ApplyChanges();
-            }
+			}
 			
-        }
+		}
 
-        public override void BeginScreenDeviceChange(bool willBeFullScreen)
-        {
-        }
+		public override void BeginScreenDeviceChange (bool willBeFullScreen)
+		{
+		}
 
-        public override void EndScreenDeviceChange(string screenDeviceName, int clientWidth, int clientHeight)
-        {
-        }
-    }
+		public override void EndScreenDeviceChange (string screenDeviceName, int clientWidth,int clientHeight)
+		{
+		}
+	}
 }
