@@ -86,7 +86,7 @@ namespace Microsoft.Xna.Framework.Audio
         private bool OpenSoundController()
         {
 #if MONOMAC || IOS
-			alcMacOSXMixerOutputRate(PREFERRED_MIX_RATE);
+			//alcMacOSXMixerOutputRate(PREFERRED_MIX_RATE);
 #endif
             try
             {
@@ -498,10 +498,10 @@ namespace Microsoft.Xna.Framework.Audio
 #endif
 
 #if MONOMAC || IOS
-		public const string OpenALLibrary = "/System/Library/Frameworks/OpenAL.framework/OpenAL";
+		//public const string OpenALLibrary = "/System/Library/Frameworks/OpenAL.framework/OpenAL";
 
-		[DllImport(OpenALLibrary, EntryPoint = "alcMacOSXMixerOutputRate")]
-		static extern void alcMacOSXMixerOutputRate (double rate); // caution
+		//[DllImport(OpenALLibrary, EntryPoint = "alcMacOSXMixerOutputRate")]
+		//static extern void alcMacOSXMixerOutputRate (double rate); // caution
 #endif
 
 	}
