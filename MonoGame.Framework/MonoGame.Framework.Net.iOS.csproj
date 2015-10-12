@@ -2,7 +2,9 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">iPhone</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D4838656-8545-4DC5-8822-D4AD313E17AC}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
@@ -10,16 +12,14 @@
     <AssemblyName>MonoGame.Framework.Net</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <NoWarn>1591,0436</NoWarn>
-    <TargetFrameworkProfile />
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <SynchReleaseVersion>False</SynchReleaseVersion>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
     <DebugType>full</DebugType>
-    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
     <OutputPath>bin\iOS\iPhone\Debug</OutputPath>
     <IntermediateOutputPath>obj\iOS\iPhone\Debug</IntermediateOutputPath>
     <DocumentationFile>bin\iOS\iPhone\Debug\MonoGame.Framework.Net.xml</DocumentationFile>
@@ -44,7 +44,6 @@
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
     <DebugType>full</DebugType>
-    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
     <OutputPath>bin\iOS\iPhoneSimulator\Debug</OutputPath>
     <IntermediateOutputPath>obj\iOS\iPhoneSimulator\Debug</IntermediateOutputPath>
     <DocumentationFile>bin\iOS\iPhoneSimulator\Debug\MonoGame.Framework.Net.xml</DocumentationFile>
@@ -89,12 +88,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="System" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Core" />
+    <Reference Include="System">
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+    </Reference>
+    <Reference Include="System.Core">
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+    </Compile>
     <Compile Include="GamerServices\AchievementCollection.cs">
       <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
     </Compile>
@@ -134,13 +137,20 @@
     <Compile Include="GamerServices\GamerZone.cs">
       <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
     </Compile>
-    <Compile Include="GamerServices\LeaderboardEntry.cs" />
-    <Compile Include="GamerServices\LeaderboardIdentity.cs" />
-    <Compile Include="GamerServices\LeaderboardKey.cs" />
-    <Compile Include="GamerServices\LeaderboardReader.cs" />
-    <Compile Include="GamerServices\LeaderboardWriter.cs" />
-    <Compile Include="GamerServices\MessageBoxIcon.cs" />
-    <Compile Include="GamerServices\PropertyDictionary.cs" />
+    <Compile Include="GamerServices\LeaderboardEntry.cs">
+    </Compile>
+    <Compile Include="GamerServices\LeaderboardIdentity.cs">
+    </Compile>
+    <Compile Include="GamerServices\LeaderboardKey.cs">
+    </Compile>
+    <Compile Include="GamerServices\LeaderboardReader.cs">
+    </Compile>
+    <Compile Include="GamerServices\LeaderboardWriter.cs">
+    </Compile>
+    <Compile Include="GamerServices\MessageBoxIcon.cs">
+    </Compile>
+    <Compile Include="GamerServices\PropertyDictionary.cs">
+    </Compile>
     <Compile Include="GamerServices\SignedInGamerCollection.cs">
       <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
     </Compile>
@@ -262,22 +272,38 @@
       <Platforms>iOS</Platforms>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup />
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\ThirdParty\Lidgren.Network\Lidgren.Network.iOS.csproj">
@@ -289,4 +315,14 @@
       <Name>MonoGame.Framework.iOS</Name>
     </ProjectReference>
   </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <TextStylePolicy inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/x-csharp" />
+          <CSharpFormattingPolicy IndentSwitchBody="True" IndentBlocksInsideExpressions="True" AnonymousMethodBraceStyle="NextLine" PropertyBraceStyle="NextLine" PropertyGetBraceStyle="NextLine" PropertySetBraceStyle="NextLine" EventBraceStyle="NextLine" EventAddBraceStyle="NextLine" EventRemoveBraceStyle="NextLine" StatementBraceStyle="NextLine" ElseNewLinePlacement="NewLine" CatchNewLinePlacement="NewLine" FinallyNewLinePlacement="NewLine" WhileNewLinePlacement="DoNotCare" ArrayInitializerWrapping="DoNotChange" ArrayInitializerBraceStyle="NextLine" BeforeMethodDeclarationParentheses="False" BeforeMethodCallParentheses="False" BeforeConstructorDeclarationParentheses="False" NewLineBeforeConstructorInitializerColon="NewLine" NewLineAfterConstructorInitializerColon="SameLine" BeforeDelegateDeclarationParentheses="False" NewParentheses="False" SpacesBeforeBrackets="False" inheritsSet="Mono" inheritsScope="text/x-csharp" scope="text/x-csharp" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>

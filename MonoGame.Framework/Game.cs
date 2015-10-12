@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-
 #if WINRT
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
@@ -30,7 +29,7 @@ namespace Microsoft.Xna.Framework
                 d => d.Visible,
                 (d, handler) => d.VisibleChanged += handler,
                 (d, handler) => d.VisibleChanged -= handler,
-                (d1, d2) => Comparer<int>.Default.Compare(d1.DrawOrder, d2.DrawOrder),
+                (d1 ,d2) => Comparer<int>.Default.Compare(d1.DrawOrder, d2.DrawOrder),
                 (d, handler) => d.DrawOrderChanged += handler,
                 (d, handler) => d.DrawOrderChanged -= handler);
 
@@ -49,15 +48,14 @@ namespace Microsoft.Xna.Framework
         private bool _initialized = false;
         private bool _isFixedTimeStep = true;
 
-        private TimeSpan _targetElapsedTime = TimeSpan.FromTicks(166667);
-        // 60fps
+        private TimeSpan _targetElapsedTime = TimeSpan.FromTicks(166667); // 60fps
         private TimeSpan _inactiveSleepTime = TimeSpan.FromSeconds(0.02);
 
         private TimeSpan _maxElapsedTime = TimeSpan.FromMilliseconds(500);
 
 
         private bool _suppressDraw;
-
+        
         public Game()
         {
             _instance = this;
@@ -492,8 +490,6 @@ namespace Microsoft.Xna.Framework
                 _gameTime.ElapsedGameTime = _accumulatedElapsedTime;
                 _gameTime.TotalGameTime += _accumulatedElapsedTime;
                 _accumulatedElapsedTime = TimeSpan.Zero;
-                // Always set the RunningSlowly flag to false here when we are in fast-as-possible mode.
-                _gameTime.IsRunningSlowly = false;
 
                 DoUpdate(_gameTime);
             }
