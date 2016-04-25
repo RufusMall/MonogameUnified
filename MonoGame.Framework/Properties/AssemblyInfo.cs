@@ -14,16 +14,10 @@ using System.Resources;
 [assembly: AssemblyDescription("MonoGame for Android")]
 #elif WINDOWS_STOREAPP
 [assembly: AssemblyDescription("MonoGame for Windows Store")]
+#elif DESKTOPGL
+[assembly: AssemblyDescription("MonoGame for all OpenGL Desktop Platforms")]
 #elif WINDOWS
-#if DIRECTX
 [assembly: AssemblyDescription("MonoGame for Windows Desktop (DirectX)")]
-#else
-[assembly: AssemblyDescription("MonoGame for Windows Desktop (OpenGL)")]
-#endif
-#elif PSM
-[assembly: AssemblyDescription("MonoGame for PlayStation Mobile")]
-#elif LINUX
-[assembly: AssemblyDescription("MonoGame for Linux")]
 #elif MAC
 [assembly: AssemblyDescription("MonoGame for Mac OS X")]
 #elif IOS
@@ -34,7 +28,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MonoGame.Framework")]
-[assembly: AssemblyCopyright("Copyright © 2011-2013")]
+[assembly: AssemblyCopyright("Copyright © 2011-2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -57,7 +51,11 @@ using System.Resources;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("81119db2-82a6-45fb-a366-63a08437b485")]
 
-[assembly: AssemblyVersion("3.4.2.0")]
-[assembly: AssemblyFileVersion("3.4.2.0")]
+// This was needed in WinRT releases to inform the system that we
+// don't need to load any language specific resources.
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
 
+// Version information for the assembly which is automatically 
+// set by our automated build process.
+[assembly: AssemblyVersion("0.0.0.0")]
+[assembly: AssemblyFileVersion("0.0.0.0")]

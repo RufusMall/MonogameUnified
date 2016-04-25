@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -12,20 +12,21 @@
     <AssemblyName>Pipeline</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <NoWarn>1591,0436</NoWarn>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
+    <LangVersion>Default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
     <DebugType>full</DebugType>
-    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
     <OutputPath>bin\Linux\AnyCPU\Debug</OutputPath>
     <IntermediateOutputPath>obj\Linux\AnyCPU\Debug</IntermediateOutputPath>
     <DocumentationFile>bin\Linux\AnyCPU\Debug\Pipeline.xml</DocumentationFile>
-    <DefineConstants>DEBUG;TRACE;LINUX;GTK</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;LINUX;GTK3</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -33,9 +34,10 @@
     <OutputPath>bin\Linux\AnyCPU\Release</OutputPath>
     <IntermediateOutputPath>obj\Linux\AnyCPU\Release</IntermediateOutputPath>
     <DocumentationFile>bin\Linux\AnyCPU\Release\Pipeline.xml</DocumentationFile>
-    <DefineConstants>TRACE;LINUX;GTK</DefineConstants>
+    <DefineConstants>TRACE;LINUX;GTK3</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -45,32 +47,39 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
     <Reference Include="gtk-sharp">
-      <HintPath>..\..\ThirdParty\Dependencies\Gtk\gtk-sharp.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Dependencies\Gtk3\gtk-sharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="atk-sharp">
-      <HintPath>..\..\ThirdParty\Dependencies\Gtk\atk-sharp.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Dependencies\Gtk3\atk-sharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="gdk-sharp">
-      <HintPath>..\..\ThirdParty\Dependencies\Gtk\gdk-sharp.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Dependencies\Gtk3\gdk-sharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="glade-sharp">
-      <HintPath>..\..\ThirdParty\Dependencies\Gtk\glade-sharp.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Dependencies\Gtk3\gio-sharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="glib-sharp">
-      <HintPath>..\..\ThirdParty\Dependencies\Gtk\glib-sharp.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Dependencies\Gtk3\glib-sharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="gtk-dotnet">
-      <HintPath>..\..\ThirdParty\Dependencies\Gtk\gtk-dotnet.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Dependencies\Gtk3\gtk-dotnet.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="pango-sharp">
-      <HintPath>..\..\ThirdParty\Dependencies\Gtk\pango-sharp.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Dependencies\Gtk3\pango-sharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Mono.Posix">
       <HintPath>..\..\ThirdParty\Dependencies\Gtk\Mono.Posix.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\History.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\MGCB\CommandLineParser.cs">
@@ -84,15 +93,22 @@
     <Compile Include="Common\ContentItem.Importer.cs" />
     <Compile Include="Common\ContentItemTemplate.cs" />
     <Compile Include="Common\ContentItemState.cs" />
+    <Compile Include="Common\FileType.cs" />
     <Compile Include="Common\ProjectState.cs" />
     <Compile Include="Common\Selection.cs" />
+    <Compile Include="Common\PipelineController.MoveAction.cs" />
     <Compile Include="Common\PipelineController.NewAction.cs" />
     <Compile Include="Common\PipelineController.ExcludeAction.cs" />
+    <Compile Include="Common\PipelineController.FileWatcher.cs" />
     <Compile Include="Common\PipelineController.IncludeAction.cs" />
+    <Compile Include="Common\PipelineController.UpdateContentItemAction.cs" />
+    <Compile Include="Common\PipelineController.UpdateProjectAction.cs" />
+    <Compile Include="Common\PipelineSettings.cs" />
     <Compile Include="Common\IController.cs" />
     <Compile Include="Common\IProjectItem.cs" />
     <Compile Include="Common\IProjectObserver.cs" />
     <Compile Include="Common\IView.cs" />
+    <Compile Include="Common\OutputParser.cs" />
     <Compile Include="Common\PipelineProjectParser.cs" />
     <Compile Include="Common\Util.cs" />
     <Compile Include="Common\StringExtensions.cs" />
@@ -101,7 +117,6 @@
     <Compile Include="Common\PipelineProject.cs" />
     <Compile Include="Common\PipelineTypes.cs" />
     <Compile Include="Common\Extensions.cs" />
-    <Compile Include="Windows\UpdateAction.cs" />
     <Compile Include="Gtk\MainWindow.cs">
       <Platforms>MacOS,Linux</Platforms>
     </Compile>
@@ -114,82 +129,81 @@
     <Compile Include="Gtk\Widgets\PropertiesView.cs">
       <Platforms>MacOS,Linux</Platforms>
     </Compile>
-    <Compile Include="Gtk\Dialogs\AboutDialog.cs">
+    <Compile Include="Gtk\Widgets\BuildOutput.cs">
+      <Platforms>MacOS,Linux</Platforms>
+    </Compile>
+    <Compile Include="Gtk\Widgets\BuildOutput.GUI.cs">
+      <Platforms>MacOS,Linux</Platforms>
+    </Compile>
+    <Compile Include="Gtk\Dialogs\AddItemDialog.cs">
       <Platforms>MacOS,Linux</Platforms>
     </Compile>
     <Compile Include="Gtk\Dialogs\NewTemplateDialog.cs">
       <Platforms>MacOS,Linux</Platforms>
     </Compile>
-    <Compile Include="Gtk\Dialogs\YesNoCancelDialog.cs">
+    <Compile Include="Gtk\Dialogs\TextEditorDialog.cs">
       <Platforms>MacOS,Linux</Platforms>
     </Compile>
     <Compile Include="Gtk\Dialogs\CollectionEditorDialog.cs">
       <Platforms>MacOS,Linux</Platforms>
     </Compile>
-    <Compile Include="Gtk\Dialogs\ColorPickerDialog.cs">
+    <Compile Include="Gtk\Dialogs\CustomFolderDialog.GUI.cs">
       <Platforms>MacOS,Linux</Platforms>
     </Compile>
-    <Compile Include="gtk-gui\generated.cs">
+    <Compile Include="Gtk\Dialogs\CustomFolderDialog.cs">
       <Platforms>MacOS,Linux</Platforms>
     </Compile>
-    <Compile Include="gtk-gui\MonoGame.Tools.Pipeline.MainWindow.cs">
+    <Compile Include="Gtk\Stetic.cs">
       <Platforms>MacOS,Linux</Platforms>
     </Compile>
-    <Compile Include="gtk-gui\MonoGame.Tools.Pipeline.NewTemplateDialog.cs">
+    <Compile Include="Gtk\MainWindow.GUI.cs">
       <Platforms>MacOS,Linux</Platforms>
     </Compile>
-    <Compile Include="gtk-gui\MonoGame.Tools.Pipeline.ProjectView.cs">
+    <Compile Include="Gtk\Dialogs\NewTemplateDialog.GUI.cs">
       <Platforms>MacOS,Linux</Platforms>
     </Compile>
-    <Compile Include="gtk-gui\MonoGame.Tools.Pipeline.PropertiesView.cs">
+    <Compile Include="Gtk\Widgets\ProjectView.GUI.cs">
       <Platforms>MacOS,Linux</Platforms>
     </Compile>
-    <Compile Include="gtk-gui\MonoGame.Tools.Pipeline.YesNoCancelDialog.cs">
+    <Compile Include="Gtk\Widgets\PropertiesView.GUI.cs">
       <Platforms>MacOS,Linux</Platforms>
     </Compile>
-    <Compile Include="gtk-gui\MonoGame.Tools.Pipeline.CollectionEditorDialog.cs">
+    <Compile Include="Gtk\Dialogs\CollectionEditorDialog.GUI.cs">
       <Platforms>MacOS,Linux</Platforms>
     </Compile>
-    <Compile Include="gtk-gui\MonoGame.Tools.Pipeline.ColorPickerDialog.cs">
+    <Compile Include="Gtk\Widgets\PropertyGridTable.GUI.cs">
       <Platforms>MacOS,Linux</Platforms>
     </Compile>
-    <Compile Include="gtk-gui\MonoGame.Tools.Pipeline.PropertyGridTable.cs">
+    <Compile Include="Gtk\Dialogs\AddItemDialog.GUI.cs">
       <Platforms>MacOS,Linux</Platforms>
     </Compile>
-    <Compile Include="gtk-gui\MonoGame.Tools.Pipeline.AboutDialog.cs">
+    <Compile Include="Gtk\Dialogs\TextEditorDialog.GUI.cs">
       <Platforms>MacOS,Linux</Platforms>
+    </Compile>
+    <Compile Include="Gtk\Global.cs">
+      <Platforms>MacOS,Linux</Platforms>
+    </Compile>
+    <Compile Include="Gtk\Gtk3Integration.cs">
+      <Platforms>Linux</Platforms>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="..\..\ThirdParty\Dependencies\Gtk\atk-sharp.dll.config">
-      <Platforms>MacOS,Linux</Platforms>
-      <Link>atk-sharp.dll.config</Link>
+    <None Include="app.manifest" />
+    <None Include="Templates\Effect.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\ThirdParty\Dependencies\Gtk\gdk-sharp.dll.config">
-      <Platforms>MacOS,Linux</Platforms>
-      <Link>gdk-sharp.dll.config</Link>
+    <None Include="Templates\Effect.fx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\ThirdParty\Dependencies\Gtk\glade-sharp.dll.config">
-      <Platforms>MacOS,Linux</Platforms>
-      <Link>glade-sharp.dll.config</Link>
+    <None Include="Templates\Effect.template">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\ThirdParty\Dependencies\Gtk\glib-sharp.dll.config">
-      <Platforms>MacOS,Linux</Platforms>
-      <Link>glib-sharp.dll.config</Link>
+    <None Include="Templates\SpriteEffect.fx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\ThirdParty\Dependencies\Gtk\gtk-sharp.dll.config">
-      <Platforms>MacOS,Linux</Platforms>
-      <Link>gtk-sharp.dll.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\..\ThirdParty\Dependencies\Gtk\pango-sharp.dll.config">
-      <Platforms>MacOS,Linux</Platforms>
-      <Link>pango-sharp.dll.config</Link>
+    <None Include="Templates\SpriteEffect.template">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Templates\Xml.png">
@@ -211,18 +225,58 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="gtk-gui\gui.stetic">
-      <Platforms>MacOS,Linux</Platforms>
-    </EmbeddedResource>
     <EmbeddedResource Include="App.ico" />
     <EmbeddedResource Include="Icons\blueprint.png" />
     <EmbeddedResource Include="Icons\missing.png" />
     <EmbeddedResource Include="Icons\folder_closed.png" />
     <EmbeddedResource Include="Icons\folder_open.png" />
+    <EmbeddedResource Include="Icons\folder_missing.png" />
     <EmbeddedResource Include="Icons\settings.png" />
+    <EmbeddedResource Include="Icons\build_begin_end.png" />
+    <EmbeddedResource Include="Icons\build_clean.png" />
+    <EmbeddedResource Include="Icons\build_fail.png" />
+    <EmbeddedResource Include="Icons\build_processing.png" />
+    <EmbeddedResource Include="Icons\build_skip.png" />
+    <EmbeddedResource Include="Icons\build_succeed.png" />
+    <EmbeddedResource Include="Icons\Toolbar\New.png">
+      <LogicalName>Toolbar.New.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Icons\Toolbar\Open.png">
+      <LogicalName>Toolbar.Open.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Icons\Toolbar\Save.png">
+      <LogicalName>Toolbar.Save.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Icons\Toolbar\NewItem.png">
+      <LogicalName>Toolbar.NewItem.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Icons\Toolbar\ExistingItem.png">
+      <LogicalName>Toolbar.ExistingItem.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Icons\Toolbar\NewFolder.png">
+      <LogicalName>Toolbar.NewFolder.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Icons\Toolbar\ExistingFolder.png">
+      <LogicalName>Toolbar.ExistingFolder.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Icons\Toolbar\Build.png">
+      <LogicalName>Toolbar.Build.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Icons\Toolbar\Rebuild.png">
+      <LogicalName>Toolbar.Rebuild.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Icons\Toolbar\Clean.png">
+      <LogicalName>Toolbar.Clean.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Icons\Toolbar\FilterOutput.png">
+      <LogicalName>Toolbar.FilterOutput.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gtk\MainWindow.HeaderBar.glade">
+      <Platforms>Linux</Platforms>
+    </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <ItemGroup />
   <ItemGroup />
@@ -237,6 +291,12 @@
   <ItemGroup />
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <_PostBuildHookTimestamp>@(IntermediateAssembly-&gt;'%(FullPath).timestamp')</_PostBuildHookTimestamp>
+  </PropertyGroup>
+  <Target Name="PostBuildHooks" Inputs="@(IntermediateAssembly);@(ReferencePath)" Outputs="@(IntermediateAssembly);$(_PostBuildHookTimestamp)" AfterTargets="CoreCompile" BeforeTargets="AfterCompile">
+    <Touch Files="$(_PostBuildHookTimestamp)" AlwaysCreate="True" />
+  </Target>
   <ItemGroup>
     <ProjectReference Include="..\..\MonoGame.Framework\MonoGame.Framework.Linux.csproj">
       <Project>{35253CE1-C864-4CD3-8249-4D1319748E8F}</Project>
@@ -251,4 +311,13 @@
       <Name>MGCB.Linux</Name>
     </ProjectReference>
   </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties><Policies>
+    <TextStylePolicy inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/x-csharp" />
+    <CSharpFormattingPolicy IndentSwitchBody="True" IndentBlocksInsideExpressions="True" AnonymousMethodBraceStyle="NextLine" PropertyBraceStyle="NextLine" PropertyGetBraceStyle="NextLine" PropertySetBraceStyle="NextLine" EventBraceStyle="NextLine" EventAddBraceStyle="NextLine" EventRemoveBraceStyle="NextLine" StatementBraceStyle="NextLine"  ElseNewLinePlacement="NewLine" CatchNewLinePlacement="NewLine" FinallyNewLinePlacement="NewLine" WhileNewLinePlacement="DoNotCare" ArrayInitializerWrapping="DoNotChange"  ArrayInitializerBraceStyle="NextLine" BeforeMethodDeclarationParentheses="False" BeforeMethodCallParentheses="False" BeforeConstructorDeclarationParentheses="False" NewLineBeforeConstructorInitializerColon="NewLine" NewLineAfterConstructorInitializerColon="SameLine" BeforeDelegateDeclarationParentheses="False" NewParentheses="False" SpacesBeforeBrackets="False" inheritsSet="Mono" inheritsScope="text/x-csharp" scope="text/x-csharp" />
+</Policies>
+</Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>
