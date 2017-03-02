@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OpenGLES;
 using OpenTK.Graphics.ES20;
 
-namespace Microsoft.Xna.Framework2
+namespace Microsoft.Xna.Framework
 {
     public class CVOpenGLESTextureCacheBackedTexture : Texture2D
     {
