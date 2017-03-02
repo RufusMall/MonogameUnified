@@ -628,6 +628,7 @@
       <Platforms>iOS</Platforms>
     </Compile>
     <Compile Include="iOS\CVOpenGLESTextureCacheBackedTexture.cs" />
+    <Platforms>iOS</Platforms>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
