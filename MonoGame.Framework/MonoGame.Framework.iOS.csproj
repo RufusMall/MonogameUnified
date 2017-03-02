@@ -627,6 +627,7 @@
     <Compile Include="iOS\OrientationConverter.cs">
       <Platforms>iOS</Platforms>
     </Compile>
+    <Compile Include="iOS\CVOpenGLESTextureCacheBackedTexture.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
