@@ -89,7 +89,6 @@ namespace Microsoft.Xna.Framework
         private iOSGameViewController _viewController;
         private UIWindow _mainWindow;
         private List<NSObject> _applicationObservers;
-		private OpenALSoundController soundControllerInstance = null;
         private CADisplayLink _displayLink;
 		private bool _isExitPending;
 
@@ -99,7 +98,14 @@ namespace Microsoft.Xna.Framework
             game.Services.AddService(typeof(iOSGamePlatform), this);
 			
 			// Setup our OpenALSoundController to handle our SoundBuffer pools
-			soundControllerInstance = OpenALSoundController.GetInstance;
+            try
+            {
+                OpenALSoundController soundControllerInstance = OpenALSoundController.GetInstance;
+            }
+            catch (DllNotFoundException ex)
+            {
+                throw (new NoAudioHardwareException("Failed to init OpenALSoundController", ex));
+            }
 
             //This also runs the TitleContainer static constructor, ensuring it is done on the main thread
             Directory.SetCurrentDirectory(TitleContainer.Location);
@@ -295,9 +301,6 @@ namespace Microsoft.Xna.Framework
 
         public override bool BeforeDraw(GameTime gameTime)
         {
-    		// Update our OpenAL sound buffer pools
-    		soundControllerInstance.Update();
-
             if (IsPlayingVideo)
                 return false;
 
