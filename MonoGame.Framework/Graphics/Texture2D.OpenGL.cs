@@ -547,27 +547,27 @@ namespace Microsoft.Xna.Framework.Graphics
 
             // create framebuffer
             GL.GenFramebuffers(1, out framebufferId);
-            GL.BindFramebuffer(All.Framebuffer, framebufferId);
+            GL.BindFramebuffer(FramebufferTarget.Framebuffer, framebufferId);
 
             //renderBufferIDs = new int[currentRenderTargets];
             GL.GenRenderbuffers(1, out renderBufferID);
 
             // attach the texture to FBO color attachment point
-            GL.FramebufferTexture2D(All.Framebuffer, All.ColorAttachment0,
-                All.Texture2D, this.glTexture, 0);
+            GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0,
+                TextureTarget.Texture2D, this.glTexture, 0);
 
             // create a renderbuffer object to store depth info
-            GL.BindRenderbuffer(All.Renderbuffer, renderBufferID);
-            GL.RenderbufferStorage(All.Renderbuffer, All.DepthComponent24Oes,
+            GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, renderBufferID);
+            GL.RenderbufferStorage(RenderbufferTarget.Renderbuffer, RenderbufferStorage.DepthComponent24Oes,
                 width, height);
 
             // attach the renderbuffer to depth attachment point
-            GL.FramebufferRenderbuffer(All.Framebuffer, All.DepthAttachment,
-                All.Renderbuffer, renderBufferID);
+            GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment,
+                RenderbufferTarget.Renderbuffer, renderBufferID);
 
-            All status = GL.CheckFramebufferStatus(All.Framebuffer);
+            FramebufferErrorCode status = GL.CheckFramebufferStatus(FramebufferTarget.Framebuffer);
 
-            if (status != All.FramebufferComplete)
+            if (status != FramebufferErrorCode.FramebufferComplete)
                 throw new Exception("Error creating framebuffer: " + status);
 
             byte[] imageInfo;
@@ -598,17 +598,17 @@ namespace Microsoft.Xna.Framework.Graphics
                     throw new NotSupportedException("Texture format");
             }
 
-            GL.ReadPixels(0, 0, width, height, All.Rgba, All.UnsignedByte, imageInfo);
+            GL.ReadPixels(0, 0, width, height, PixelFormat.Rgba, PixelType.UnsignedByte, imageInfo);
 
             // Detach the render buffers.
-            GL.FramebufferRenderbuffer(All.Framebuffer, All.DepthAttachment,
-                All.Renderbuffer, 0);
+            GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment,
+                RenderbufferTarget.Renderbuffer, 0);
             // delete the RBO's
             GL.DeleteRenderbuffers(1, ref renderBufferID);
             // delete the FBO
             GL.DeleteFramebuffers(1, ref framebufferId);
             // Set the frame buffer back to the system window buffer
-            GL.BindFramebuffer(All.Framebuffer, 0);          
+            GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);          
 
             return imageInfo;
 
