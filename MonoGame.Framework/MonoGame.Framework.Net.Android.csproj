@@ -56,48 +56,23 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Core" />
     <Reference Include="mscorlib" />
+    <Reference Include="OpenTK-1.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GamerServices\AchievementCollection.cs">
-      <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
-    </Compile>
-    <Compile Include="GamerServices\Achievement.cs">
-      <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
-    </Compile>
-    <Compile Include="GamerServices\FriendCollection.cs">
-      <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
-    </Compile>
-    <Compile Include="GamerServices\FriendGamer.cs">
-      <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
-    </Compile>
-    <Compile Include="GamerServices\GamerCollection.cs">
-      <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
-    </Compile>
-    <Compile Include="GamerServices\Gamer.cs">
-      <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
-    </Compile>
-    <Compile Include="GamerServices\GamerDefaults.cs">
-      <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
-    </Compile>
-    <Compile Include="GamerServices\GamerPresence.cs">
-      <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
-    </Compile>
-    <Compile Include="GamerServices\GamerPresenceMode.cs">
-      <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
-    </Compile>
-    <Compile Include="GamerServices\GamerPrivileges.cs">
-      <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
-    </Compile>
-    <Compile Include="GamerServices\GamerPrivilegeSetting.cs">
-      <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
-    </Compile>
-    <Compile Include="GamerServices\GamerProfile.cs">
-      <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
-    </Compile>
-    <Compile Include="GamerServices\GamerZone.cs">
-      <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
-    </Compile>
+    <Compile Include="GamerServices\AchievementCollection.cs" />
+    <Compile Include="GamerServices\Achievement.cs" />
+    <Compile Include="GamerServices\FriendCollection.cs" />
+    <Compile Include="GamerServices\FriendGamer.cs" />
+    <Compile Include="GamerServices\GamerCollection.cs" />
+    <Compile Include="GamerServices\Gamer.cs" />
+    <Compile Include="GamerServices\GamerDefaults.cs" />
+    <Compile Include="GamerServices\GamerPresence.cs" />
+    <Compile Include="GamerServices\GamerPresenceMode.cs" />
+    <Compile Include="GamerServices\GamerPrivileges.cs" />
+    <Compile Include="GamerServices\GamerPrivilegeSetting.cs" />
+    <Compile Include="GamerServices\GamerProfile.cs" />
+    <Compile Include="GamerServices\GamerZone.cs" />
     <Compile Include="GamerServices\LeaderboardEntry.cs" />
     <Compile Include="GamerServices\LeaderboardIdentity.cs" />
     <Compile Include="GamerServices\LeaderboardKey.cs" />
@@ -105,113 +80,111 @@
     <Compile Include="GamerServices\LeaderboardWriter.cs" />
     <Compile Include="GamerServices\MessageBoxIcon.cs" />
     <Compile Include="GamerServices\PropertyDictionary.cs" />
-    <Compile Include="GamerServices\SignedInGamerCollection.cs">
-      <ExcludePlatforms>WindowsPhone</ExcludePlatforms>
-    </Compile>
+    <Compile Include="GamerServices\SignedInGamerCollection.cs" />
     <Compile Include="GamerServices\GuideAlreadyVisibleException.cs">
-      <Platforms>Android,MacOS,Ouya,Windows,WindowsGL,Linux</Platforms>
+      <Platforms>Android,MacOS,Windows,WindowsGL,Linux</Platforms>
     </Compile>
     <Compile Include="GamerServices\GamerServicesComponent.cs">
-      <Platforms>Android,iOS,Linux,MacOS,Ouya,Windows,WindowsGL</Platforms>
+      <Platforms>Android,iOS,Linux,MacOS,Windows,WindowsGL</Platforms>
     </Compile>
     <Compile Include="Net\AvailableNetworkSessionCollection.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\AvailableNetworkSession.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\CommandEvent.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\CommandEventType.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\CommandGamerJoined.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\CommandGamerLeft.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\CommandGamerStateChange.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\CommandReceiveData.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\CommandSendData.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\CommandSessionStateChange.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\GamerStates.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\ICommand.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\LocalNetworkGamer.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\MonoGamerPeer.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\NetworkException.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\NetworkGamer.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\NetworkMachine.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\NetworkMessageType.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\NetworkNotAvailableException.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\NetworkSession.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\NetworkSessionEndReason.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\NetworkSessionJoinError.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\NetworkSessionJoinException.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\NetworkSessionProperties.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\NetworkSessionState.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\NetworkSessionType.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\PacketReader.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\PacketWriter.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\QualityOfService.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Net\SendDataOptions.cs">
-      <ExcludePlatforms>WindowsPhone,WindowsPhone81,Windows8,WindowsUniversal</ExcludePlatforms>
+      <ExcludePlatforms>WindowsUniversal</ExcludePlatforms>
     </Compile>
     <Compile Include="Android\GamerServices\Guide.cs">
-      <Platforms>Android,Ouya</Platforms>
+      <Platforms>Android</Platforms>
     </Compile>
     <Compile Include="Android\GamerServices\MonoGameGamerServicesHelper.cs">
-      <Platforms>Android,Ouya</Platforms>
+      <Platforms>Android</Platforms>
     </Compile>
     <Compile Include="Android\GamerServices\SignedInGamer.cs">
-      <Platforms>Android,Ouya</Platforms>
+      <Platforms>Android</Platforms>
     </Compile>
     <Compile Include="Resources\Resource.Designer.cs">
       <Platforms>Android,Ouya</Platforms>
@@ -237,6 +210,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <PropertyGroup>
     <_PostBuildHookTimestamp>@(IntermediateAssembly-&gt;'%(FullPath).timestamp')</_PostBuildHookTimestamp>
+    <_PostBuildHookHostPlatform>$(Platform)</_PostBuildHookHostPlatform>
   </PropertyGroup>
   <Target Name="PostBuildHooks" Inputs="@(IntermediateAssembly);@(ReferencePath)" Outputs="@(IntermediateAssembly);$(_PostBuildHookTimestamp)" AfterTargets="CoreCompile" BeforeTargets="AfterCompile">
     <Touch Files="$(_PostBuildHookTimestamp)" AlwaysCreate="True" />
@@ -254,8 +228,8 @@
   <ProjectExtensions>
     <MonoDevelop>
       <Properties><Policies>
-    <TextStylePolicy inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/x-csharp" />
-    <CSharpFormattingPolicy IndentSwitchBody="True" IndentBlocksInsideExpressions="True" AnonymousMethodBraceStyle="NextLine" PropertyBraceStyle="NextLine" PropertyGetBraceStyle="NextLine" PropertySetBraceStyle="NextLine" EventBraceStyle="NextLine" EventAddBraceStyle="NextLine" EventRemoveBraceStyle="NextLine" StatementBraceStyle="NextLine"  ElseNewLinePlacement="NewLine" CatchNewLinePlacement="NewLine" FinallyNewLinePlacement="NewLine" WhileNewLinePlacement="DoNotCare" ArrayInitializerWrapping="DoNotChange"  ArrayInitializerBraceStyle="NextLine" BeforeMethodDeclarationParentheses="False" BeforeMethodCallParentheses="False" BeforeConstructorDeclarationParentheses="False" NewLineBeforeConstructorInitializerColon="NewLine" NewLineAfterConstructorInitializerColon="SameLine" BeforeDelegateDeclarationParentheses="False" NewParentheses="False" SpacesBeforeBrackets="False" inheritsSet="Mono" inheritsScope="text/x-csharp" scope="text/x-csharp" />
+  <TextStylePolicy inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/x-csharp" />
+  <CSharpFormattingPolicy IndentSwitchSection="True" NewLinesForBracesInProperties="True" NewLinesForBracesInAccessors="True" NewLinesForBracesInAnonymousMethods="True" NewLinesForBracesInControlBlocks="True" NewLinesForBracesInAnonymousTypes="True" NewLinesForBracesInObjectCollectionArrayInitializers="True" NewLinesForBracesInLambdaExpressionBody="True" NewLineForElse="True" NewLineForCatch="True" NewLineForFinally="True" NewLineForMembersInObjectInit="True" NewLineForMembersInAnonymousTypes="True" NewLineForClausesInQuery="True" SpacingAfterMethodDeclarationName="False" SpaceAfterMethodCallName="False" SpaceBeforeOpenSquareBracket="False" inheritsSet="Mono" inheritsScope="text/x-csharp" scope="text/x-csharp" />
 </Policies>
 </Properties>
     </MonoDevelop>
