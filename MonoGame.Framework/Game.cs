@@ -317,7 +317,7 @@ namespace Microsoft.Xna.Framework
         #region Public Methods
 
 #if IOS
-        [Obsolete("This platform's policy does not allow programmatically closing.", true)]
+        //[Obsolete("This platform's policy does not allow programmatically closing.", true)]
 #endif
         public void Exit()
         {
