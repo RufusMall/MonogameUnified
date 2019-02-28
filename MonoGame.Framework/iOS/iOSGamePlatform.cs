@@ -250,7 +250,10 @@ namespace Microsoft.Xna.Framework
                     // disposing resources disposed from a non-ui thread
                     Game.GraphicsDevice.Present();
                 }
-                _viewController.View.Present();
+                if (_viewController != null)
+                {
+                    _viewController.View.Present();
+                }
             }
         }
 
